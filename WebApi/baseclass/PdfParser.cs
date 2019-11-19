@@ -28,10 +28,15 @@ namespace FormParser.Pdf
         public PdfDocument GetPdfDocument()
         {
             var preader = new PdfReader(inputPdfFile);
+            preader.SetUnethicalReading(true);
             var inputPdf = new PdfDocument(preader);
             return inputPdf;
         }
 
+        public int GetPageNumber()
+        {
+            return GetPdfDocument().GetNumberOfPages();
+        }
         // Pick a page from current pdf, and generate a new pdf with this page
         public bool PageToNewPdf(int pageindex,string newpdffilename)
         {
@@ -87,21 +92,55 @@ namespace FormParser.Pdf
             writer.Close();
         }
 
+        public Dictionary<string,string> SetFieldsValues(List<Dictionary<string,string>> data,string newpdfname)
+        {
+            // Get pdf reader from current pdf
+            // and init a new pdf writer
+            PdfReader inputReader = new PdfReader(inputPdfFile);
+            var outfile = newpdfname;
+            var writer = new PdfWriter(outfile);
+            var indoc = new PdfDocument(inputReader, writer);
+
+            // Get form fields
+            PdfAcroForm form = PdfAcroForm.GetAcroForm(indoc,false);
+            var fields1 = form.GetFormFields();
+
+            // Set Value by key name
+            var retDict = new Dictionary<string, string>();
+            foreach(var d in data)
+            {
+                var fieldkey = d["pdfformkey"];
+                var v1 = d["value"];
+                if(fields1.Keys.Contains(fieldkey))
+                    fields1[fieldkey].SetValue(v1==null?"":v1.ToString(),true);
+                else // add not found key to return object
+                    {
+                        retDict.Add(fieldkey,v1);
+                    }
+            }
+            indoc.Close();
+            writer.Close();
+            return retDict;
+        }
+
         // Get fields key/type/currentvalue from current pdf and return a dict
-        public Dictionary<string,object> GetFieldsByPage(int pageindex)
+        public List<Dictionary<string,object>> GetFieldsInfo()
         {
 
             PdfAcroForm form = PdfAcroForm.GetAcroForm(this.GetPdfDocument(),false);
             var fields = form.GetFormFields();
-            var ret = new Dictionary<string,object>();
+            var ret = new List<Dictionary<string,object>>();
             foreach(var fkey in fields.Keys)
             {
                 var field = fields[fkey];
                 if(field.GetFormType()!=null)
                 {
-                    ret.Add(fkey,new Dictionary<string,object>{
+                    ret.Add(new Dictionary<string,object>{
+                        {"key",fkey.Replace(' ','.')},
+                        {"pdfformkey",fkey},
                         {"type",field.GetFormType().ToString()},
-                        {"value",field.GetValue()==null?null:field.GetValueAsString()}
+                        {"value",field.GetValue()==null?null:field.GetValueAsString()},
+                        {"rule","string"}
                     });
                 }
             }

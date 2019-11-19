@@ -25,6 +25,7 @@ namespace Form1022WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
         }
 
@@ -35,13 +36,14 @@ namespace Form1022WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
+            app.UseCors(config=>{
+                config.AllowAnyOrigin();
+                config.AllowAnyMethod();
+                config.AllowAnyHeader();
+            });
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
             app.UseRouting();
-
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

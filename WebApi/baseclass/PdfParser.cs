@@ -111,8 +111,14 @@ namespace FormParser.Pdf
             {
                 var fieldkey = d["pdfformkey"];
                 var v1 = d["value"];
-                if(fields1.Keys.Contains(fieldkey))
-                    fields1[fieldkey].SetValue(v1==null?"":v1.ToString(),true);
+                if(fields1.Keys.Contains(fieldkey)){
+                    if(fields1[fieldkey].GetFormType().ToString().Equals("/Btn"))
+                    {
+                        fields1[fieldkey].SetValue(v1==null?"false":"true",true);
+                    }
+                    else
+                        fields1[fieldkey].SetValue(v1==null?"":v1.ToString());
+                }
                 else // add not found key to return object
                     {
                         retDict.Add(fieldkey,v1);

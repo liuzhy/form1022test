@@ -2,7 +2,45 @@
 
 这是一个小型的测试项目。
 
-技术基础：dotnet core 3，node.js
+组成：基于dotnet 3.0的WebApi项目；基于React.js的前端项目
+
+**用法：**
+
+1）进入WebApi项目，执行dotnet run，然后将wwwroot文件夹拷贝到WebApi/bin/Debug/netcoreapp3.0 文件夹；或者
+
+2）运行WebApi项目，然后再运行ClientUI项目（进入文件夹，先npm run install，再npm run start，建议用yarn install和yarn start）
+
+**流程及原理：**
+
+1、首页：服务端将pdf文件夹内的文件名列表发送到客户端进行显示（Form1022Controller/GetAllForms）；
+
+2、点击文件列表中的File 1022，此时服务端会分析pdf内容并列出文件具有的页码总数(Form1022Controller/GetAllForms)；
+
+3、点击相应的页码（第3页），服务端会调用Form022Controller/GetPage，该方法首先查找是否有生成好的Form说明（json文件），如果有则直接返回，如果没有则拆分出单页，解析该页中的Form Fields元素，生成Form说明，并将信息返回，客户端根据信息进行页面初始化，显示表单；
+
+4、表单中的保存按钮，调用了Form1022Controller/PostPageForm方法，服务端将提交上来的名/值对与Form说明（json文件）对比，并保存值到json中。
+
+5、表单中的导出pdf功能，调用了Form1022Controller/GetFile方法，该方法从json文件中取出Form说明和值，填充到第3步的单页中并传送到客户端。
+
+项目中没有使用数据库，用了json来保存。
+
+**已知问题：**
+
+1、pdf文件中的checkbox/radiobox赋值有问题，无法正确赋值和显示，可能是因为我不太熟悉iText库的原因；
+
+2、没来得及写单元测试，也没有进行完备的出错处理；
+
+3、打开填写好的pdf文件，不能正确显示文件名；
+
+**花费总时间：**
+
+大约10-13个工作小时，其中大部分用在熟悉iText类库，以及前端页面的调试。
+
+
+
+以下是开发心得
+
+------
 
 **原需求**比较简单，大意是从UI中取得数据，然后保存，并可以根据官方固定格式的pdf form进行回填和下载。
 

@@ -1,21 +1,41 @@
 .App {
-  text-align: center;
+  
 }
 
-.App-logo {
-  height: 40vmin;
+.root {
+  width: 90%;
 }
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
+.backButton {
+  margin-right: 5px,
 }
-
-.App-link {
-  color: #09d3ac;
+.instructions {
+  border:1px solid #eee;
+  border-radius:5px;
+  width:65%;
+  margin-left:auto;
+  margin-right:auto;
+  min-height:70vh;
+}
+.textField {
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 65%;
+}
+.typography1 {
+  width:95%;
+  text-align:'left';
+  padding-left:5px;
+  padding-bottom:20px;
+}
+.typography1 {
+  width:95%;
+  text-align:'left';
+  padding-left:5px;
+}
+.typography2{
+  padding-left:40px;
+  padding-bottom:20px;
+}
+.formgroup1 {
+    margin-left:40px;
 }

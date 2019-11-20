@@ -23,7 +23,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
 const apiurl=(func)=>{
-    return `http://localhost:5000/api/${func}`
+    return `${window.location.host}/api/${func}`
 }
 export default class FormEditComponent extends React.Component {
     constructor(props){

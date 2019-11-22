@@ -87,13 +87,15 @@ namespace Form1022WebApi
                 result = srcofnig.ReadToEnd();
                 srcofnig.Close();
                 var configObj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string,object>>>(result);
+                var retobject = new List<Dictionary<string,object>>();
                 foreach(var c in configObj)
                 {
                     var key = c["key"].ToString();
                     if(dObj.ContainsKey(key))
                         c.Add("value",dObj[key]);
+                    retobject.Add(c);
                 }
-                return configObj;
+                return retobject;
             }
             return null;
         }

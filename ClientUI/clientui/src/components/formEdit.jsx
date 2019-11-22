@@ -440,8 +440,11 @@ export default class FormEditComponent extends React.Component {
                             body: JSON.stringify(this.state.form3data)
                         })
                         .then(jsp=>jsp.json())
-                        .then(data=>console.log(data));
-                    }}>Save My Info</Button>
+                        .then(data=>{
+                            if(data===true)
+                            alert('Saved!');
+                        });
+                    }}>Save My Info</Button> or 
                     <Button variant="contained" color='secondary'  className='backButton' onClick={e=>{
                         var url = apiurl(`download/myform/${this.state.fileid}.${this.state.pageindex}.pdf`);
                         window.open(url);

@@ -78,7 +78,9 @@ namespace Form1022WebApi.Controllers
             if(!forcegenerate)
             {
                 var db = new DbHelper();
-                var ret = db.LoadFormConfig(formid,pageid);
+                var ret = db.LoadFormData(formid,pageid);
+                if(ret==null)
+                    ret = db.LoadFormConfig(formid,pageid);
                 if(ret!=null)
                     return ret;
             }

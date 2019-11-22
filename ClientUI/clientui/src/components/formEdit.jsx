@@ -201,23 +201,28 @@ export default class FormEditComponent extends React.Component {
                 <div className='typography1'>
                     4. Relationship status
                     <FormGroup className='formgroup1'>
-                    {[
-                        {key:'ap.marital.mar',title:'Married'},
-                        {key:'ap.marital.eng',title:'Engaged'},
-                        {key:'ap.marital.def',title:'De facto'},
-                        {key:'ap.marital.sep',title:'Separated'},
-                        {key:'ap.marital.div',title:'Divorced'},
-                        {key:'ap.marital.wid',title:'Widowed'},
-                        {key:'ap.marital.nev.mar',title:'Never married or been in a de facto relationship'}
-                    ].map(item=>(
-                        <FormControlLabel key={item.key}
-                        control={<Checkbox 
-                            checked={this.f3(item.key)==='Yes'} 
-                            onChange={e=>this.s3(item.key,e.target.checked?'Yes':null)} 
-                            color='primary' />}
-                        label={item.title}
-                    />
-                    ))}
+                        <RadioGroup
+                            value={['mar','eng','def','sep','div','wid','nev.mar'].forEach(m=>{
+                                if(this.f3(`ap.marital.${m}`)==='Yes')
+                                    return m;
+                            })} 
+                            onChange={e=>{
+                                ['mar','eng','def','sep','div','wid','nev.mar'].forEach(m=>{
+                                    this.s3(`ap.marital.${m}`,e.target.value===m?'Yes':null);
+                                });
+                            }}>
+                            {[
+                                {key:'mar',title:'Married'},
+                                {key:'eng',title:'Engaged'},
+                                {key:'def',title:'De facto'},
+                                {key:'sep',title:'Separated'},
+                                {key:'div',title:'Divorced'},
+                                {key:'wid',title:'Widowed'},
+                                {key:'nev.mar',title:'Never married or been in a de facto relationship'}
+                            ].map(item=>(
+                                <FormControlLabel value={item.key} control={<Radio />} label={item.title} />
+                            ))}                            
+                        </RadioGroup>
                     </FormGroup>
                 </div>
                 <div className='typography1'>

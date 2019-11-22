@@ -13,6 +13,7 @@ namespace FormParser.Pdf
     // This class can split pdf file/get pdf form information/fill pdf form fields/
     public class PdfParser
     {
+
         string inputPdfFile;
         public PdfParser(string pdffile)
         {
@@ -92,7 +93,7 @@ namespace FormParser.Pdf
             writer.Close();
         }
 
-        public Dictionary<string,string> SetFieldsValues(List<Dictionary<string,string>> data,string newpdfname)
+        public Dictionary<string,string> SetFieldsValues(List<Dictionary<string,object>> data,string newpdfname)
         {
             // Get pdf reader from current pdf
             // and init a new pdf writer
@@ -109,19 +110,19 @@ namespace FormParser.Pdf
             var retDict = new Dictionary<string, string>();
             foreach(var d in data)
             {
-                var fieldkey = d["pdfformkey"];
-                var v1 = d["value"];
-                if(fields1.Keys.Contains(fieldkey)){
-                    if(fields1[fieldkey].GetFormType().ToString().Equals("/Btn"))
-                    {
-                        fields1[fieldkey].SetValue(v1==null?"false":"true",true);
-                    }
-                    else
-                        fields1[fieldkey].SetValue(v1==null?"":v1.ToString());
+                var fieldkey = d["pdfformkey"].ToString();
+
+                // set form field value
+                // form contains field and jsonfile contains value and json value is not null
+                if(fields1.Keys.Contains(fieldkey) && d.ContainsKey("value")){
+                    // parse data field
+                    var v1 = convertToFieldValue(d);
+                    if(v1!="")
+                        fields1[fieldkey].SetValue(v1,false);
                 }
                 else // add not found key to return object
                     {
-                        retDict.Add(fieldkey,v1);
+                        retDict.Add(fieldkey,"false");
                     }
             }
             indoc.Close();
@@ -141,16 +142,48 @@ namespace FormParser.Pdf
                 var field = fields[fkey];
                 if(field.GetFormType()!=null)
                 {
-                    ret.Add(new Dictionary<string,object>{
+                    var insDic = new Dictionary<string,object>{
                         {"key",fkey.Replace(' ','.')},
                         {"pdfformkey",fkey},
-                        {"type",field.GetFormType().ToString()},
-                        {"value",field.GetValue()==null?null:field.GetValueAsString()},
-                        {"rule","string"}
-                    });
+                        {"formtype",field.GetFormType().ToString()},
+                        {"type",field.GetType().ToString()},
+                        {"defaultvalue",field.GetValue()==null?null:field.GetValueAsString()},
+                        {"rule","string"},
+                    };
+                    var state = field.GetAppearanceStates();
+                    //field.GetPdfObject().GetAsString(PdfName.DA);
+                    if(state.Length>0)
+                        insDic.Add("state",string.Join(',',state));
+                    ret.Add(insDic);
                 }
             }
             return ret;
+        }
+
+        private string convertToFieldValue(Dictionary<string, object> input)
+        {
+            if(input.ContainsKey("rule") && input.ContainsKey("value"))
+            {
+                var v = input["value"];
+                if(v==null || string.IsNullOrWhiteSpace(v.ToString()))
+                    return "";
+                var stype = input["rule"].ToString().ToLower();
+                switch(stype)
+                {
+                    case "date":
+                        if(input.ContainsKey("format"))
+                        {
+                            return DateTime.Parse(input["value"].ToString()).ToString(input["format"].ToString());
+                        }
+                        break;
+                }
+                return input["value"].ToString();
+            }
+            else
+            {
+                throw new ArgumentException("Input dictionary must contains [rule] and [value]");
+            }
+
         }
     }
 

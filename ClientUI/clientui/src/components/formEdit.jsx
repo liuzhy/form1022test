@@ -23,7 +23,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 
 const apiurl=(func)=>{
-    return `${window.location.host}/api/${func}`
+    return `${window.location.origin}/api/${func}`
 }
 export default class FormEditComponent extends React.Component {
     constructor(props){
@@ -41,10 +41,11 @@ export default class FormEditComponent extends React.Component {
     }
 
     loadFiles = () => {
-        fetch(apiurl('form'))
+        var url = apiurl('form');
+        fetch(url)
         .then(rsp=>rsp.json())
         .then(data=>this.setState({filelist:data}))
-        .catch(error=>console.error('Fetch file list error:',error));
+        .catch(error=>console.error('Fetch file list error:',url,error));
     }
 
     openFile=(fileid)=>{
@@ -203,7 +204,7 @@ export default class FormEditComponent extends React.Component {
                     {[
                         {key:'ap.marital.mar',title:'Married'},
                         {key:'ap.marital.eng',title:'Engaged'},
-                        {key:'ap.marital.daf',title:'De facto'},
+                        {key:'ap.marital.def',title:'De facto'},
                         {key:'ap.marital.sep',title:'Separated'},
                         {key:'ap.marital.div',title:'Divorced'},
                         {key:'ap.marital.wid',title:'Widowed'},
@@ -211,8 +212,8 @@ export default class FormEditComponent extends React.Component {
                     ].map(item=>(
                         <FormControlLabel key={item.key}
                         control={<Checkbox 
-                            checked={this.f3(item.key)==='yes'} 
-                            onChange={e=>this.s3(item.key,e.target.checked?'yes':'no')} 
+                            checked={this.f3(item.key)==='Yes'} 
+                            onChange={e=>this.s3(item.key,e.target.checked?'Yes':null)} 
                             color='primary' />}
                         label={item.title}
                     />
@@ -362,8 +363,13 @@ export default class FormEditComponent extends React.Component {
                             {key:'ap.com.dimia',title:'Country code'}
                         ].map(item=>(
                         <RadioGroup key={item.key}
-                            value={this.f3(item.key)} 
-                            onChange={e=>this.s3(item.key,e.target.value)}>
+                            value={this.f3(item.key+'.2')==='yes'?'yes':'no'} 
+                            onChange={e=>{
+                                var v=e.target.value;
+                                this.s3(item.key,null);
+                                this.s3(item.key+".1",v==="no"?v:null);
+                                this.s3(item.key+".2",v==="yes"?v:null);
+                            }}>
                             <FormControlLabel value="no" control={<Radio />} label="No" />
                             <FormControlLabel value="yes" control={<Radio />} label="Yes, Giv Details" />
                         </RadioGroup>
@@ -437,7 +443,7 @@ export default class FormEditComponent extends React.Component {
                         .then(data=>console.log(data));
                     }}>Save My Info</Button>
                     <Button variant="contained" color='secondary'  className='backButton' onClick={e=>{
-                        var url = apiurl(`download/${this.state.fileid}/${this.state.pageindex}`);
+                        var url = apiurl(`download/myform/${this.state.fileid}.${this.state.pageindex}.pdf`);
                         window.open(url);
                     }}>Export PDF</Button>
                 </center>

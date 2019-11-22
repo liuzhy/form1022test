@@ -72,13 +72,16 @@ namespace Form1022WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/form/{formid}/{pageid}")]
-        public List<Dictionary<string, object>> GetPage(string formid,int pageid)
+        [Route("api/form/{formid}/{pageid}/{forcegenerate?}")]
+        public List<Dictionary<string,object>> GetPage(string formid,int pageid,bool forcegenerate=false)
         {
-            var db = new DbHelper();
-            var ret = db.LoadFormData(formid,pageid);
-            if(ret!=null)
-                return ret;
+            if(!forcegenerate)
+            {
+                var db = new DbHelper();
+                var ret = db.LoadFormConfig(formid,pageid);
+                if(ret!=null)
+                    return ret;
+            }
 
             var pdffile = Path.Combine(pdfroot,formid+".pdf");
             var pdfDoc = new PdfParser(pdffile);
@@ -88,6 +91,7 @@ namespace Form1022WebApi.Controllers
             if(pdfDoc.PageToNewPdf(pageid,newpdf))
             {
                 var result =new PdfParser(newpdf).GetFieldsInfo();
+                var db = new DbHelper();
                 db.SavePdfFormData(formid,pageid,result);
                 return result;
             }
@@ -104,32 +108,32 @@ namespace Form1022WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/download/{formid}/{pageid}")]
+        [Route("api/download/myform/{formid}.{pageid}.pdf")]
         public ActionResult<Stream> GetFile(string formid,int pageid)
         {
-            var configfile = Path.Combine(pdfroot,string.Format("{0}.{1}.json",formid,pageid));
-            if(System.IO.File.Exists(configfile)){
-                var sr = new StreamReader(configfile);
-                var result = sr.ReadToEnd();
-                sr.Close();
-                var jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Dictionary<string,string>>>(result);
+            //var configfile = Path.Combine(pdfroot,string.Format("{0}.{1}.json",formid,pageid));
+            var db = new DbHelper();
+            var jsonObj = db.LoadFormData(formid,pageid);
+            if(jsonObj.Count>0)
+            {
 
                 var pdffile = Path.Combine(pdfroot,formid+".pdf");
                 var pdfDoc = new PdfParser(pdffile);
                 if(pageid>pdfDoc.GetPageNumber() || pageid<1)
                     return null;
                 var newpdf = Path.Combine(pdfroot,string.Format("{0}.{1}.pdf",formid,pageid));
+                var downpdfname = string.Format("myform.{0}.{1}.pdf",formid,pageid);
                 if(pdfDoc.PageToNewPdf(pageid,newpdf))
                 {
                     var pdfDocForm = new PdfParser(newpdf);
                     if(pdfDocForm.GetFieldsInfo().Count<1)
                         return null;
                     // edit post content
-                    pdfDocForm.SetFieldsValues(jsonObj,Path.Combine(pdfroot,"myform.pdf"));
+                    pdfDocForm.SetFieldsValues(jsonObj,Path.Combine(pdfroot,downpdfname));
                     // edit finished
                 }
 
-                string localFilePath = Path.Combine(pdfroot, "myform.pdf");
+                string localFilePath = Path.Combine(pdfroot, downpdfname);
                 string fileName = Path.GetFileName(localFilePath);
                 //long fileSize = (new FileInfo(localFilePath)).Length;
                 var dataBytes = System.IO.File.ReadAllBytes(localFilePath);  

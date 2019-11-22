@@ -98,7 +98,7 @@ namespace FormParser.Pdf
             // Get pdf reader from current pdf
             // and init a new pdf writer
             PdfReader inputReader = new PdfReader(inputPdfFile);
-            var outfile = newpdfname;
+            var outfile =  Path.Combine(AppContext.BaseDirectory, Path.GetRandomFileName());
             var writer = new PdfWriter(outfile);
             var indoc = new PdfDocument(inputReader, writer);
 
@@ -127,6 +127,12 @@ namespace FormParser.Pdf
             }
             indoc.Close();
             writer.Close();
+
+            var flattendoc = new PdfDocument(new PdfReader(outfile),new PdfWriter(newpdfname));
+            File.Delete(outfile);
+            PdfAcroForm.GetAcroForm(flattendoc,false).FlattenFields();
+            flattendoc.Close();
+
             return retDict;
         }
 

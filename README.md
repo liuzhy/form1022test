@@ -22,19 +22,19 @@
 
 5、表单中的导出pdf功能，调用了Form1022Controller/GetFile方法，该方法从json文件中取出Form说明和值，填充到第3步的单页中并传送到客户端。
 
-项目中没有使用数据库，用了json来保存。
+项目中没有使用数据库，用了json来保存, There are tow json file: one for form config, another for user form data.
 
 **已知问题：**
 
-1、pdf文件中的checkbox/radiobox赋值有问题，无法正确赋值和显示，可能是因为我不太熟悉iText库的原因；
+~~1、pdf文件中的checkbox/radiobox赋值有问题，无法正确赋值和显示，可能是因为我不太熟悉iText库的原因；~~
 
 2、没来得及写单元测试，也没有进行完备的出错处理；
 
-3、打开填写好的pdf文件，不能正确显示文件名；
+~~3、打开填写好的pdf文件，不能正确显示文件名；~~
 
 **花费总时间：**
 
-大约10-13个工作小时，其中大部分用在熟悉iText类库，以及前端页面的调试。
+大约13-16个工作小时，其中大部分用在熟悉iText类库，以及前端页面的调试。
 
 
 

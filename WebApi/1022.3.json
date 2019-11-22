@@ -1,0 +1,287 @@
+[
+    {
+        "key": "ap.name.fam",
+        "pdfformkey": "ap.name fam",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.name.giv",
+        "pdfformkey": "ap.name giv",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.dob",
+        "pdfformkey": "ap.dob",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "date",
+        "format":"\u00A0dd\u00A0\u00A0\u00A0\u00A0MMM\u00A0\u00A0\u00A0\u00A0yyyy"
+    }, {
+        "key": "ap.birth.town",
+        "pdfformkey": "ap.birth town",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.birth.cntry",
+        "pdfformkey": "ap.birth cntry",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.marital.mar",
+        "pdfformkey": "ap.marital mar",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "Yes"
+    }, {
+        "key": "ap.marital.eng",
+        "pdfformkey": "ap.marital eng",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "Yes"
+    }, {
+        "key": "ap.marital.def",
+        "pdfformkey": "ap.marital def",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "Yes"
+    }, {
+        "key": "ap.marital.sep",
+        "pdfformkey": "ap.marital sep",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "Yes"
+    }, {
+        "key": "ap.marital.div",
+        "pdfformkey": "ap.marital div",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "Yes"
+    }, {
+        "key": "ap.marital.wid",
+        "pdfformkey": "ap.marital wid",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "Yes"
+    }, {
+        "key": "ap.marital.nev.mar",
+        "pdfformkey": "ap.marital nev mar",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "Yes"
+    }, {
+        "key": "ap.pass.no",
+        "pdfformkey": "ap.pass no",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.pass.cntry",
+        "pdfformkey": "ap.pass cntry",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.ident.no",
+        "pdfformkey": "ap.ident no",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.ident.cntry",
+        "pdfformkey": "ap.ident cntry",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.cit",
+        "pdfformkey": "ap.cit",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.resi.str",
+        "pdfformkey": "ap.resi str",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.resi.sub",
+        "pdfformkey": "ap.resi sub",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.resi.cntry",
+        "pdfformkey": "ap.resi cntry",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.resi.pc",
+        "pdfformkey": "ap.resi pc",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.corresp.str",
+        "pdfformkey": "ap.corresp str",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.corresp.sub",
+        "pdfformkey": "ap.corresp sub",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.corresp.cntry",
+        "pdfformkey": "ap.corresp cntry",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.corresp.hap",
+        "pdfformkey": "ap.corresp hap",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.off.ph.cc",
+        "pdfformkey": "ap.off ph cc",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.off.ph.ac",
+        "pdfformkey": "ap.off ph ac",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.off.ph",
+        "pdfformkey": "ap.off ph",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.after.ph.cc",
+        "pdfformkey": "ap.after ph cc",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.after.ph.ac",
+        "pdfformkey": "ap.after ph ac",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.after.pn",
+        "pdfformkey": "ap.after pn",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.com.dimia",
+        "pdfformkey": "ap.com dimia",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfButtonFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "no,yes"
+    }, {
+        "key": "ap.com.dimia.1",
+        "pdfformkey": "ap.com dimia.1",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "no"
+    }, {
+        "key": "ap.com.dimia.2",
+        "pdfformkey": "ap.com dimia.2",
+        "formtype": "/Btn",
+        "type": "iText.Forms.Fields.PdfFormField",
+        "defaultvalue": null,
+        "rule": "string",
+        "state": "yes"
+    }, {
+        "key": "ap.fax.cc",
+        "pdfformkey": "ap.fax cc",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.fax.ac",
+        "pdfformkey": "ap.fax ac",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.fax.ph",
+        "pdfformkey": "ap.fax ph",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.email",
+        "pdfformkey": "ap.email",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }, {
+        "key": "ap.file.no",
+        "pdfformkey": "ap.file no",
+        "formtype": "/Tx",
+        "type": "iText.Forms.Fields.PdfTextFormField",
+        "defaultvalue": null,
+        "rule": "string"
+    }
+]

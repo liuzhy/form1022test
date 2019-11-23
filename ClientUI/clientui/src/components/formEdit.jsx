@@ -202,10 +202,6 @@ export default class FormEditComponent extends React.Component {
                     4. Relationship status
                     <FormGroup className='formgroup1'>
                         <RadioGroup
-                            value={['mar','eng','def','sep','div','wid','nev.mar'].forEach(m=>{
-                                if(this.f3(`ap.marital.${m}`)==='Yes')
-                                    return m;
-                            })} 
                             onChange={e=>{
                                 ['mar','eng','def','sep','div','wid','nev.mar'].forEach(m=>{
                                     this.s3(`ap.marital.${m}`,e.target.value===m?'Yes':null);
@@ -220,7 +216,9 @@ export default class FormEditComponent extends React.Component {
                                 {key:'wid',title:'Widowed'},
                                 {key:'nev.mar',title:'Never married or been in a de facto relationship'}
                             ].map(item=>(
-                                <FormControlLabel value={item.key} control={<Radio />} label={item.title} />
+                                <FormControlLabel value={item.key} control={<Radio />} label={item.title} checked={
+                                    this.f3(`ap.marital.${item.key}`)==='Yes'
+                                } />
                             ))}                            
                         </RadioGroup>
                     </FormGroup>
